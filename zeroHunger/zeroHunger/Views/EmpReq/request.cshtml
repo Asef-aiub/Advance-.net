@@ -1,0 +1,50 @@
+﻿@model IEnumerable<zeroHunger.DB.Request>
+
+@{
+    ViewBag.Title = "request";
+}
+
+<h2>Requests</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateReq")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoodName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreserveTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FoodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PreserveTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditReq", new { id = item.RequestId }) |
+            @Html.ActionLink("Assign", "CreateAssign", "assign")
+        </td>
+    </tr>
+}
+
+</table>

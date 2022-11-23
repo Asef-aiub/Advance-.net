@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="zero_hungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmId" />
+    </Key>
+    <Property Name="EmId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmpName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contact" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EmployeeAssigns" Relationship="Self.FK_EmployeeAssign_EmployeeAssign" FromRole="Employee" ToRole="EmployeeAssign" />
+  </EntityType>
+  <EntityType Name="EmployeeAssign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+    <Property Name="RequestId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeAssign_EmployeeAssign" FromRole="EmployeeAssign" ToRole="Employee" />
+    <NavigationProperty Name="Request" Relationship="Self.FK_EmployeeAssign_Request" FromRole="EmployeeAssign" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="RequestId" />
+    </Key>
+    <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FoodName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Qty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PreserveTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EmployeeAssigns" Relationship="Self.FK_EmployeeAssign_Request" FromRole="Request" ToRole="EmployeeAssign" />
+  </EntityType>
+  <Association Name="FK_EmployeeAssign_EmployeeAssign">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeAssign" Type="Self.EmployeeAssign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmId" />
+      </Principal>
+      <Dependent Role="EmployeeAssign">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeAssign_Request">
+    <End Role="Request" Type="Self.Request" Multiplicity="1" />
+    <End Role="EmployeeAssign" Type="Self.EmployeeAssign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="RequestId" />
+      </Principal>
+      <Dependent Role="EmployeeAssign">
+        <PropertyRef Name="RequestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="zero_hungerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="EmployeeAssigns" EntityType="Self.EmployeeAssign" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <AssociationSet Name="FK_EmployeeAssign_EmployeeAssign" Association="Self.FK_EmployeeAssign_EmployeeAssign">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="EmployeeAssign" EntitySet="EmployeeAssigns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeAssign_Request" Association="Self.FK_EmployeeAssign_Request">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="EmployeeAssign" EntitySet="EmployeeAssigns" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

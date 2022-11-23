@@ -1,0 +1,44 @@
+﻿@model IEnumerable<zeroHunger.DB.EmployeeAssign>
+
+@{
+    ViewBag.Title = "status";
+}
+
+<h2>status</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreateAssign")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+           
+            @Html.ActionLink("Done", "Done", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

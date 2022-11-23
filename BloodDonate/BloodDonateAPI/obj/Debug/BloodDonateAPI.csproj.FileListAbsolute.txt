@@ -1,0 +1,2 @@
+E:\git\Advance-.net\BloodDonate\BloodDonateAPI\obj\Debug\BloodDonateAPI.csproj.AssemblyReference.cache
+E:\git\Advance-.net\BloodDonate\BloodDonateAPI\obj\Debug\BloodDonateAPI.csproj.CoreCompileInputs.cache
